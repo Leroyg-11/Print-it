@@ -19,27 +19,49 @@ const slides = [
 
 let count = 0; 
 
-const sliderContainer = document.getElementById('slider');
+const sliderContainer = document.getElementById('slider'); 
 
-const allSlides = slides
-
-const allSlidesImg = slides.tagLine
+			//IMG//
 
 const img = document.createElement('img');
-img.src = `${slides[count].image}`;
+img.src = slides[count].image;
 img.alt = `nbSlide${count + 1}`;
 img.classList.add('slider_img');
 
-sliderContainer.appendChild(img);
 
-const suivant = document.querySelector('.arrow_right');
-const precedent = document.querySelector('.arrow_left');
+			//ARROW LEFT//
 
-let afficheText = document.querySelector(".affiche_text");
-afficheText.innerHTML = `${slides[count].tagLine}`;
+const left = document.createElement('img');
+left.src = "./assets/images/arrow_left.png";
+left.alt = "Arrow left";
+left.classList.add("arrow", "arrow_left")
 
-// Gestion dot
-const dotsContainer = document.querySelector(".dots")
+
+			//ARROW right//
+
+const right = document.createElement('img');
+right.src = "./assets/images/arrow_right.png";
+right.alt = "Arrow right";
+right.classList.add("arrow", "arrow_right")
+
+
+			//TEXTE//
+
+const text = document.createElement("p");
+text.innerHTML = slides[count].tagLine;
+
+
+			//DOTS//
+
+const dotsContainer = document.createElement("div")
+dotsContainer.classList.add("dots")
+
+
+	//RATTACHER LES BALISES CRÉES À L'ÉLÉMENT PARENT//
+
+sliderContainer.append(img, left, right, text, dotsContainer);
+
+			//DOT//
 
 slides.forEach(function(){
 	const dot = document.createElement('div');
@@ -47,10 +69,15 @@ slides.forEach(function(){
 	dotsContainer.appendChild(dot)
 })
 
+
 const Alldots = document.querySelectorAll(".dot")
 Alldots[count].classList.add('dot_selected')
 
-suivant.addEventListener('click', slideSuivante);
+
+
+			//SUIVANT//
+
+right.addEventListener('click', slideSuivante);
 
 function slideSuivante(){
 	Alldots[count].classList.remove('dot_selected')
@@ -63,15 +90,16 @@ function slideSuivante(){
 		count = 0;
 	}
 
-	img.src = `${slides[count].image}`;
+	img.src = slides[count].image;
 	img.classList.add('slider_img');
 
-	afficheText.innerHTML = slides[count].tagLine;
+	text.innerHTML = slides[count].tagLine;
 
 	Alldots[count].classList.add('dot_selected')
 }
 
-precedent.addEventListener('click', slidePrecedente);
+			//PRECEDENTE//
+left.addEventListener('click', slidePrecedente);
 
 function slidePrecedente(){
 	Alldots[count].classList.remove('dot_selected')
@@ -84,13 +112,15 @@ function slidePrecedente(){
 		count = slides.length - 1;
 	}
 
-	img.src = `${slides[count].image}`;
+	img.src = slides[count].image;
 	img.classList.add('slider_img');
 
-	afficheText.innerHTML = slides[count].tagLine;
+	text.innerHTML = slides[count].tagLine;
 
 	Alldots[count].classList.add('dot_selected')
 }
+
+
 
 
 
